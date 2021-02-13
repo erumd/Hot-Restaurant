@@ -59,26 +59,35 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+      const searchBtn = document.getElementById('search-btn');
       const customerName = document.getElementById('name');
       const customerEmail = document.getElementById('email');
-      const CustomerID = document.getElementById('id');
+      const customerID = document.getElementById('id');
       const phoneNumber = document.getElementById('phone');
 
+searchBtn.addEventListener('click', () => {
+  let searchedReservation = document
+    .getElementById('search-reservation')
+    .value.trim();
 
-fetch(`/api/routes/${searchedCharacter}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            const { customerName, customerEmail, CustomerID, phoneNumber} = data;
-          })
-  .catch((error) => {
-    console.error(error);
+        // Using a RegEx Pattern to remove spaces from searchedCharacter
+    searchedReservation = searchedReservation.replace(/\s+/g, '').toLowerCase();
+
+  fetch(`/api/routes/${searchedReservation}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              const { customerName, customerEmail, CustomerID, phoneNumber} = data;
+            })
+    .catch((error) => {
+      console.error(error);
   });
+});
 
 </script>
 
